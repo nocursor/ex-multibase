@@ -198,4 +198,4 @@ def deps do
 end
 ```
 
-API Documentation can be found at [https://hexdocs.pm/multibase/](https://hexdocs.pm/ex-multibase).
+API Documentation can be found at [https://hexdocs.pm/multibase/](https://hexdocs.pm/multibase).
