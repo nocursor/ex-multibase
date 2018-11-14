@@ -1,6 +1,8 @@
 # Multibase
 
-This library is an Elixir implementation of [Multibase](https://github.com/multiformats/ex-multibase). It provides an Elixir-centric interface to [Multibase](https://github.com/multiformats/multibase) and several helper functions for making the process as painless as possible. Further, it aggregates a collection of clean, pragmatic, and reasonably fast (in Elixir terms) encoders and decoders.
+This library is an Elixir implementation of [Multibase](https://github.com/multiformats/multibase). 
+
+This implementation provides an Elixir-centric interface to [Multibase](https://github.com/multiformats/multibase) and several helper functions for making the process as painless as possible. Further, it aggregates a collection of clean, pragmatic, and reasonably fast (in Elixir terms) encoders and decoders.
 
 Multibase provides a simple way of encoding data by tagging it with the given encoding method. This allows encoding and decoding safely and accurately within a known set of encodings. Multibase ensures that the encoding type is always known, human readable, and that data can be transparently encoded and decoded in a consistent way. 
 
