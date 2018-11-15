@@ -190,7 +190,7 @@ Multibase.multibase!(b58_flickr_encoded_data, :base58_flickr)
 ```
 ## Installation
 
-Multibase is available via [Hex](https://hex.pm/packages/multibase). The package can be installed by adding `basefiftyeight` to your list of dependencies in `mix.exs`:
+Multibase is available via [Hex](https://hex.pm/packages/multibase). The package can be installed by adding `multibase` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
