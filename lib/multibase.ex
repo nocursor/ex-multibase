@@ -61,7 +61,6 @@ defmodule Multibase do
   | encoding     |      code |  name                                                     | encoding ids                                   |
   |--------------|-----------|-----------------------------------------------------------|------------------------------------------------|
   | identity     |       0x00|  8-bit binary (encoder and decoder keeps data unmodified) |`:identity`                                     |
-  | base1        |          1|     unary tends to be 11111                               |`:base1`                                        |
   | base2        |          0|     binary has 1 and 0                                    |`:base2`                                        |
   | base8        |          7|     highest char in octal                                 |`:base8`                                        |
   | base10       |          9|     highest char in decimal                               |`:base10`                                       |
@@ -84,7 +83,6 @@ defmodule Multibase do
 
   * [Multibase](https://github.com/multiformats/multibase)
   * [Elixir Base Module](https://hexdocs.pm/elixir/Base.html)
-  * [Base1](https://github.com/nocursor/base1)
   * [Base2](https://github.com/nocursor/base2)
   * [B58](https://github.com/nocursor/b58)
   * [ZBase32](https://github.com/nocursor/zbase32)
@@ -97,7 +95,7 @@ defmodule Multibase do
   @typedoc """
   A family of encoding_id values that are related but differ by options or alphabet typically.
   """
-  @type encoding_family_id :: :identity | :base1 | :base2 | :base8 | :base10 | :base16 | :base32 | :base58 | :base64
+  @type encoding_family_id :: :identity | :base2 | :base8 | :base10 | :base16 | :base32 | :base58 | :base64
 
   @typedoc """
   A binary encoded and prefixed according to Multibase.
@@ -107,7 +105,7 @@ defmodule Multibase do
   @typedoc """
   An encoding supported by Multibase.
   """
-  @type encoding_id :: :identity | :base1 | :base2 | :base8 | :base10 | :base16_upper | :base16_lower
+  @type encoding_id :: :identity | :base2 | :base8 | :base10 | :base16_upper | :base16_lower
   | :base32_hex_upper | :base32_hex_lower | :base32_hex_pad_upper | :base32_hex_pad_lower
   | :base32_upper | :base32_lower | :base32_pad_upper | :base32_pad_lower | :base32z
   | :base58_flickr | :base58_btc | :base64 | :base64_pad | :base64_url | :base64_url_pad
@@ -155,10 +153,6 @@ defmodule Multibase do
     %{encoding_id: :identity, prefix: <<0x00>>, encoding_family_id: :identity,
       encoding_mfa: [BaseIdentity, :encode, []],
       decoding_mfa: [BaseIdentity, :decode!, []],
-    },
-    %{encoding_id: :base1, prefix: "1", encoding_family_id: :base1,
-      encoding_mfa: [Base1, :encode_length_bin, []],
-      decoding_mfa: [Base1, :decode_length_bin!, []],
     },
     %{encoding_id: :base2, prefix: "0", encoding_family_id: :base2,
       encoding_mfa: [Base2, :encode2, [[padding: :none]]],
@@ -530,7 +524,7 @@ defmodule Multibase do
   ## Examples
 
       iex> Multibase.encodings()
-      [:identity, :base1, :base2, :base8, :base10, :base16_upper, :base16_lower,
+      [:identity, :base2, :base8, :base10, :base16_upper, :base16_lower,
       :base32_hex_upper, :base32_hex_lower, :base32_hex_pad_upper,
       :base32_hex_pad_lower, :base32_upper, :base32_lower, :base32_pad_upper,
       :base32_pad_lower, :base32_z, :base58_flickr, :base58_btc, :base64,
@@ -548,7 +542,7 @@ defmodule Multibase do
   ## Examples
 
       iex> Multibase.encoding_families()
-      [:base1, :base10, :base16, :base2, :base32, :base58, :base64, :base8, :identity]
+      [:base10, :base16, :base2, :base32, :base58, :base64, :base8, :identity]
 
   """
   @spec encoding_families() :: [encoding_family_id()]
@@ -597,9 +591,6 @@ defmodule Multibase do
       iex>  Multibase.encodings_for!(:base8)
       [:base8]
 
-      iex> Multibase.encodings_for!(:base1)
-      [:base1]
-
   """
   @spec encodings_for!(encoding_family_id()) :: {:ok, [encoding_id()]} | {:error, :unsupported_encoding}
   def encodings_for!(encoding_family_id) do
@@ -644,9 +635,6 @@ defmodule Multibase do
       iex> Multibase.encoding_family!(:base8)
       :base8
 
-      iex>  Multibase.encoding_family!(:base1)
-      :base1
-
   """
   @spec encoding_family!(encoding_id()) :: {:ok, encoding_family_id()} | {:error, :unsupported_encoding}
   def encoding_family!(encoding_id) do
@@ -662,9 +650,6 @@ defmodule Multibase do
   Returns an error if the given `encoding_id` is not supported.
 
   ## Examples
-
-      iex>  Multibase.prefix(:base1)
-      {:ok, "1"}
 
       iex> Multibase.prefix(:base32_hex_pad_upper)
       {:ok, "T"}
